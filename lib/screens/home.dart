@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:un_check/widgets/list_card.dart';
+import 'package:un_check/widgets/category_card.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -18,15 +18,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: ListView(
         children: <Widget>[
-          ListCard(
+          CategoryCard(
             title: 'Bakery',
             number: 5,
           ),
-          ListCard(
+          CategoryCard(
             title: 'Groceries',
             number: 3,
           ),
-          ListCard(
+          CategoryCard(
             title: 'Pantry',
             number: 7,
           ),

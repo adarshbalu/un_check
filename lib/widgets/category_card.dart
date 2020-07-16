@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:un_check/screens/details_screen.dart';
+import 'package:un_check/utils/constants.dart';
 
-class ListCard extends StatelessWidget {
+class CategoryCard extends StatelessWidget {
   final String title;
   final Icon icon;
   final int number;
 
-  const ListCard({
+  const CategoryCard({
     Key key,
     this.title,
     this.icon,
@@ -52,7 +53,7 @@ class ListCard extends StatelessWidget {
                     padding: EdgeInsets.only(right: 8),
                     child: Text(
                       title,
-                      style: TextStyle(fontSize: 19),
+                      style: categoryDefaultTextStyle,
                     ),
                   ),
                   Container(
