@@ -1,31 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hive/hive.dart';
+import 'package:un_check/models/item.dart';
 import 'package:un_check/utils/constants.dart';
 
 class AddItemScreen extends StatefulWidget {
+  final String category;
+  const AddItemScreen({Key key, this.category}) : super(key: key);
   @override
   _AddItemScreenState createState() => _AddItemScreenState();
 }
 
 class _AddItemScreenState extends State<AddItemScreen> {
-  TextEditingController name, quantity;
-  String type;
-
+  TextEditingController nameController, quantityController;
+  String type, name;
+  double quantity;
   int _defaultChoiceIndex;
   @override
   void initState() {
-    name = TextEditingController();
-    quantity = TextEditingController();
+    nameController = TextEditingController();
+    quantityController = TextEditingController();
     type = 'pcs';
     _defaultChoiceIndex = 0;
     super.initState();
+  }
+
+  addItem() {
+    final itemBox = Hive.box(itemsBoxName);
+    final newItem = Item(
+        name: name,
+        type: type,
+        quantity: quantity,
+        category: widget.category,
+        done: false);
+    itemBox.add(newItem);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add item'),
+        title: Text('Add item to ${widget.category.toUpperCase()}'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -53,7 +68,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                             hintText: 'Name of the item',
                             helperText: 'Item Name',
                           ),
-                          controller: name,
+                          controller: nameController,
                         ),
                       ),
                     ),
@@ -67,7 +82,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                         decoration: InputDecoration(
                           hintText: 'Quantity',
                         ),
-                        controller: quantity,
+                        controller: quantityController,
                       ),
                     ),
                   ],
@@ -85,7 +100,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     color: Colors.green,
                     onPressed: () {
                       type = typeChoices[_defaultChoiceIndex];
-                      print(type);
+                      name = nameController.text;
+                      quantity = double.parse(quantityController.text);
+                      addItem();
+                      Navigator.pop(context);
                     },
                     icon: Icon(Icons.add_shopping_cart),
                     label: Text('Add item'))
@@ -119,5 +137,14 @@ class _AddItemScreenState extends State<AddItemScreen> {
       spacing: 8,
       runSpacing: 0,
     );
+  }
+
+  @override
+  void dispose() {
+    nameController.clear();
+    quantityController.clear();
+    nameController.dispose();
+    quantityController.dispose();
+    super.dispose();
   }
 }

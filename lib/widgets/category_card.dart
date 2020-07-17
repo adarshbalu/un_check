@@ -3,8 +3,7 @@ import 'package:un_check/screens/details_screen.dart';
 import 'package:un_check/utils/constants.dart';
 
 class CategoryCard extends StatelessWidget {
-  final String title;
-  final String icon;
+  final String title, icon, category;
   final int number;
 
   const CategoryCard({
@@ -12,6 +11,7 @@ class CategoryCard extends StatelessWidget {
     this.title,
     this.icon,
     this.number,
+    this.category,
   }) : super(key: key);
 
   @override
@@ -22,6 +22,7 @@ class CategoryCard extends StatelessWidget {
           MaterialPageRoute(
               builder: (_) => DetailsScreen(
                     title: title,
+                    category: category,
                   ))),
       child: Card(
         margin: EdgeInsets.symmetric(

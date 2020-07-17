@@ -75,3 +75,27 @@ const String householdImage = 'assets/household.png';
 const String meatImage = 'assets/meat.png';
 const String pantryImage = 'assets/pantry.png';
 const String otherImage = 'assets/other.png';
+
+const String bakery = 'bakery';
+const String study = 'study';
+const String dairy = 'dairy';
+const String fruits = 'fruits';
+const String groceries = 'groceries';
+const String household = 'household';
+const String meat = 'meat';
+const String pantry = 'pantry';
+const String other = 'other';
+
+const String itemsBoxName = 'items';
+
+const Map<String, String> categoryToIcon = {
+  bakery: bakeryImage,
+  study: studyImage,
+  dairy: dairyImage,
+  fruits: fruitsImage,
+  groceries: groceriesImage,
+  household: householdImage,
+  meat: meatImage,
+  pantry: pantryImage,
+  other: otherImage
+};

@@ -1,20 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:un_check/models/item.dart';
 import 'package:un_check/utils/constants.dart';
 
 class ItemCard extends StatelessWidget {
-  final String name, type;
-  final double quantity;
+  final Item item;
+  final int index;
   const ItemCard({
     Key key,
-    this.name,
-    this.type,
-    this.quantity,
+    this.item,
+    this.index,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final itemBox = Hive.box(itemsBoxName);
     return InkWell(
+      onLongPress: () {
+        itemBox.deleteAt(index);
+      },
       onTap: () {
         showModalBottomSheet(
             backgroundColor: Colors.white,
@@ -27,7 +32,7 @@ class ItemCard extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'Uncheck $name ?',
+                          'Uncheck ${item.name} ?',
                           style: TextStyle(color: Colors.black, fontSize: 19),
                         ),
                       ),
@@ -42,6 +47,8 @@ class ItemCard extends StatelessWidget {
                               Icons.done,
                             ),
                             onPressed: () {
+                              Item newItem = item.copy(done: true);
+                              itemBox.putAt(index, newItem);
                               Navigator.pop(context);
                             },
                           ),
@@ -53,6 +60,8 @@ class ItemCard extends StatelessWidget {
                             color: Colors.red,
                             icon: Icon(Icons.info_outline),
                             onPressed: () {
+                              Item newItem = item.copy(done: false);
+                              itemBox.putAt(index, newItem);
                               Navigator.pop(context);
                             },
                           )
@@ -69,11 +78,11 @@ class ItemCard extends StatelessWidget {
           children: <Widget>[
             Column(
               children: <Widget>[
-                Text(name, style: itemDefaultTextStyle),
+                Text(item.name, style: itemDefaultTextStyle),
                 SizedBox(
                   height: 8,
                 ),
-                Text(quantity.toString() + ' ' + type,
+                Text(item.quantity.toString() + ' ' + item.type,
                     style: quantityDefaultTextStyle)
               ],
             ),
