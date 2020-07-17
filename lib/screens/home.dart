@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:un_check/utils/constants.dart';
 import 'package:un_check/widgets/category_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,14 +22,17 @@ class _HomeScreenState extends State<HomeScreen> {
           CategoryCard(
             title: 'Bakery',
             number: 5,
+            icon: bakeryImage,
           ),
           CategoryCard(
             title: 'Groceries',
             number: 3,
+            icon: groceriesImage,
           ),
           CategoryCard(
             title: 'Pantry',
             number: 7,
+            icon: pantryImage,
           ),
         ],
       ),

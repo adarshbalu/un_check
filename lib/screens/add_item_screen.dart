@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:un_check/utils/constants.dart';
 
 class AddItemScreen extends StatefulWidget {
   @override
@@ -9,7 +10,7 @@ class AddItemScreen extends StatefulWidget {
 class _AddItemScreenState extends State<AddItemScreen> {
   TextEditingController name, quantity;
   String type;
-  List<String> _choices;
+
   int _defaultChoiceIndex;
   @override
   void initState() {
@@ -17,16 +18,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
     quantity = TextEditingController();
     type = 'pcs';
     _defaultChoiceIndex = 0;
-    _choices = [
-      'pcs',
-      'kg',
-      'gr',
-      'ltr',
-      'pkg',
-      'ml',
-      'botl',
-      'can',
-    ];
     super.initState();
   }
 
@@ -57,15 +48,11 @@ class _AddItemScreenState extends State<AddItemScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
+                          style: TextStyle(color: Colors.black),
                           decoration: InputDecoration(
-                              hintText: 'Name of the item',
-                              helperText: 'Item Name',
-                              border: OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(),
-                              errorBorder: OutlineInputBorder(),
-                              disabledBorder: OutlineInputBorder(),
-                              focusedErrorBorder: OutlineInputBorder(),
-                              enabledBorder: OutlineInputBorder()),
+                            hintText: 'Name of the item',
+                            helperText: 'Item Name',
+                          ),
                           controller: name,
                         ),
                       ),
@@ -74,16 +61,12 @@ class _AddItemScreenState extends State<AddItemScreen> {
                       width: MediaQuery.of(context).size.width / 3.5,
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
+                        maxLength: 10,
+                        style: TextStyle(color: Colors.black),
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                            hintText: 'Quantity',
-                            helperText: 'Quantity',
-                            border: OutlineInputBorder(),
-                            focusedBorder: OutlineInputBorder(),
-                            errorBorder: OutlineInputBorder(),
-                            disabledBorder: OutlineInputBorder(),
-                            focusedErrorBorder: OutlineInputBorder(),
-                            enabledBorder: OutlineInputBorder()),
+                          hintText: 'Quantity',
+                        ),
                         controller: quantity,
                       ),
                     ),
@@ -101,7 +84,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                         borderRadius: BorderRadius.circular(10)),
                     color: Colors.green,
                     onPressed: () {
-                      type = _choices[_defaultChoiceIndex];
+                      type = typeChoices[_defaultChoiceIndex];
                       print(type);
                     },
                     icon: Icon(Icons.add_shopping_cart),
@@ -116,9 +99,9 @@ class _AddItemScreenState extends State<AddItemScreen> {
 
   Widget choiceChips() {
     List<Widget> choiceChipWidgets = List<Widget>();
-    for (int i = 0; i < _choices.length; i++) {
+    for (int i = 0; i < typeChoices.length; i++) {
       choiceChipWidgets.add(ChoiceChip(
-        label: Text(_choices[i]),
+        label: Text(typeChoices[i]),
         selected: _defaultChoiceIndex == i,
         selectedColor: Colors.green,
         onSelected: (bool selected) {

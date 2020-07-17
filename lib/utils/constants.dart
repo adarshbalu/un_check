@@ -42,3 +42,36 @@ const pendingIcon = Icon(
   Icons.info_outline,
   color: Colors.orange,
 );
+
+const List<String> typeChoices = [
+  'pcs',
+  'kg',
+  'gr',
+  'ltr',
+  'pkg',
+  'ml',
+  'botl',
+  'can',
+];
+
+const List<String> categoryChoices = [
+  'Bakery',
+  'Groceries',
+  'Pantry',
+  'Fruits and Vegetables',
+  'Meat and Poultry',
+  'Dairy and Eggs',
+  'Household',
+  'Books and Study items',
+  'Other',
+];
+
+const String bakeryImage = 'assets/bakery.png';
+const String studyImage = 'assets/books.png';
+const String dairyImage = 'assets/dairy.png';
+const String fruitsImage = 'assets/fruits.png';
+const String groceriesImage = 'assets/groceries.png';
+const String householdImage = 'assets/household.png';
+const String meatImage = 'assets/meat.png';
+const String pantryImage = 'assets/pantry.png';
+const String otherImage = 'assets/other.png';

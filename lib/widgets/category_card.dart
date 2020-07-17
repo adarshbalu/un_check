@@ -4,7 +4,7 @@ import 'package:un_check/utils/constants.dart';
 
 class CategoryCard extends StatelessWidget {
   final String title;
-  final Icon icon;
+  final String icon;
   final int number;
 
   const CategoryCard({
@@ -42,13 +42,8 @@ class CategoryCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(left: 8.0, right: 8),
-                    child: Icon(
-                      Icons.assignment,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  ),
+                      padding: EdgeInsets.only(left: 8.0, right: 8),
+                      child: Image.asset(icon)),
                   Padding(
                     padding: EdgeInsets.only(right: 8),
                     child: Text(

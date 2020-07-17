@@ -44,7 +44,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
               child: ListView(
                 shrinkWrap: true,
                 children: <Widget>[
-                  ItemCard(),
+                  ItemCard(
+                    name: 'Apple',
+                    quantity: 10,
+                    type: 'pcs',
+                  ),
                 ],
               ),
             ),

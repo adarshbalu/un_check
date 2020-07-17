@@ -17,6 +17,29 @@ class MyApp extends StatelessWidget {
       title: 'UnCheck',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
+        inputDecorationTheme: InputDecorationTheme(
+            filled: true,
+            fillColor: Colors.white,
+            hintStyle: TextStyle(color: Colors.grey.shade800),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(width: 2),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(width: 2),
+            ),
+            errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(width: 2, color: Colors.red)),
+            disabledBorder:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+            focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(width: 2, color: Colors.red)),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 2),
+                borderRadius: BorderRadius.circular(10))),
         scaffoldBackgroundColor: Colors.black,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: AppBarTheme(
