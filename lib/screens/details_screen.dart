@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:un_check/screens/add_item_screen.dart';
 import 'package:un_check/widgets/item_card.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -50,13 +51,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
             Positioned(
               bottom: 5,
               right: 5,
-              child: CircleAvatar(
-                radius: 30,
-                backgroundColor: Colors.green,
-                child: Icon(
-                  Icons.add,
-                  size: 30,
-                  color: Colors.white,
+              child: GestureDetector(
+                onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => AddItemScreen())),
+                child: CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.green,
+                  child: Icon(
+                    Icons.add,
+                    size: 30,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
