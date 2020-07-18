@@ -5,17 +5,35 @@ import 'package:un_check/utils/constants.dart';
 class CategoryCard extends StatelessWidget {
   final String title, icon, category;
   final int number;
-
+  final bool done;
   const CategoryCard({
     Key key,
     this.title,
     this.icon,
     this.number,
     this.category,
+    this.done,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Color backgroundColor = Colors.grey;
+    Color textColor = Colors.white;
+    Color titleColor = Colors.white;
+    bool empty = false;
+    if (number == 0) {
+      empty = true;
+    }
+    if (done) {
+      backgroundColor = Colors.green;
+      textColor = Colors.white;
+    } else if (!empty) {
+      backgroundColor = Colors.orangeAccent;
+      textColor = Colors.white;
+    } else {
+      titleColor = Colors.grey;
+    }
+
     return GestureDetector(
       onTap: () => Navigator.push(
           context,
@@ -49,18 +67,19 @@ class CategoryCard extends StatelessWidget {
                     padding: EdgeInsets.only(right: 8),
                     child: Text(
                       title,
-                      style: categoryDefaultTextStyle,
+                      style:
+                          categoryDefaultTextStyle.copyWith(color: titleColor),
                     ),
                   ),
                   Container(
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: backgroundColor,
                         borderRadius: BorderRadius.circular(8)),
                     margin: EdgeInsets.only(left: 5),
                     padding: EdgeInsets.all(8),
                     child: Text(
                       number.toString(),
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: textColor),
                     ),
                   )
                 ],

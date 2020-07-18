@@ -29,6 +29,19 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text(
           'SHOPPING LIST',
         ),
+        actions: <Widget>[
+          Center(
+            child: IconButton(
+              onPressed: () async {
+                await itemsBox.clear();
+              },
+              icon: Icon(
+                Icons.refresh,
+                size: 30,
+              ),
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: ValueListenableBuilder(
@@ -97,6 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (itemList.length == 0) {
         categoryWidgets.add(
           CategoryCard(
+            done: false,
             title: category.toUpperCase(),
             number: itemList.length,
             icon: categoryToIcon[category],
@@ -104,15 +118,35 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         );
       } else {
-        categoryWidgets.insert(
-          index,
-          CategoryCard(
-            title: category.toUpperCase(),
-            number: itemList.length,
-            icon: categoryToIcon[category],
-            category: category,
-          ),
-        );
+        bool done = false;
+        int doneItems = 0;
+        itemList.forEach((item) {
+          if (item.done) doneItems++;
+        });
+        if (doneItems == itemList.length) done = true;
+        if (done) {
+          categoryWidgets.insert(
+            index,
+            CategoryCard(
+              done: done,
+              title: category.toUpperCase(),
+              number: itemList.length,
+              icon: categoryToIcon[category],
+              category: category,
+            ),
+          );
+        } else {
+          categoryWidgets.insert(
+            0,
+            CategoryCard(
+              done: done,
+              title: category.toUpperCase(),
+              number: itemList.length,
+              icon: categoryToIcon[category],
+              category: category,
+            ),
+          );
+        }
         index++;
       }
     });
