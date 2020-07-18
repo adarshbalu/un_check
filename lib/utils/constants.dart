@@ -75,6 +75,7 @@ const String householdImage = 'assets/household.png';
 const String meatImage = 'assets/meat.png';
 const String pantryImage = 'assets/pantry.png';
 const String otherImage = 'assets/other.png';
+const String emptyImage = 'assets/empty.svg';
 
 const String bakery = 'bakery';
 const String study = 'study';

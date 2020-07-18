@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:un_check/models/item.dart';
@@ -17,9 +18,11 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   int totalItems, completedItems;
   Box itemsBox;
+  List<Widget> itemCardWidgets;
   @override
   void initState() {
     totalItems = completedItems = 0;
+    itemCardWidgets = List<Widget>();
     itemsBox = Hive.box(itemsBoxName);
 
     super.initState();
@@ -62,10 +65,27 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       borderRadius: BorderRadius.circular(15),
                       color: Color(0xff3A3940),
                     ),
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: getAllItems(),
-                    ),
+                    child: itemCardWidgets.length > 0
+                        ? ListView(
+                            shrinkWrap: true,
+                            children: getAllItems(),
+                          )
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height / 1.5,
+                                margin: EdgeInsets.only(left: 8, right: 8),
+                                child: SvgPicture.asset(emptyImage,
+                                    semanticsLabel: 'Empty'),
+                              ),
+                              Text(
+                                'Add items to list',
+                                style: itemDefaultTextStyle,
+                              ),
+                            ],
+                          ),
                   ),
                   Positioned(
                     bottom: 5,
@@ -101,7 +121,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   List<Widget> getAllItems() {
-    List<Widget> itemCardWidgets = [];
+    itemCardWidgets = [];
 
     for (int i = 0; i < itemsBox.length; i++) {
       Item item = itemsBox.getAt(i);
