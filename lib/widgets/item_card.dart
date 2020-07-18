@@ -25,15 +25,31 @@ class ItemCard extends StatelessWidget {
             backgroundColor: Colors.white,
             context: context,
             builder: (context) => Container(
-                  height: MediaQuery.of(context).size.height / 6,
+                  height: MediaQuery.of(context).size.height / 4.3,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Uncheck ${item.name} ?',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                        child: ListTile(
+                          trailing: GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                              itemBox.deleteAt(index);
+                            },
+                            child: Icon(
+                              Icons.delete_outline,
+                              color: Colors.red,
+                            ),
+                          ),
+                          subtitle: Text(
+                            item.quantity.toString() + ' ' + item.type,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          title: Text(
+                            'Uncheck ${item.name} ?',
+                            style: TextStyle(color: Colors.black, fontSize: 19),
+                          ),
                         ),
                       ),
                       Row(
@@ -57,7 +73,7 @@ class ItemCard extends StatelessWidget {
                           ),
                           IconButton(
                             iconSize: 40,
-                            color: Colors.red,
+                            color: Colors.orange,
                             icon: Icon(Icons.info_outline),
                             onPressed: () {
                               Item newItem = item.copy(done: false);
@@ -86,7 +102,7 @@ class ItemCard extends StatelessWidget {
                     style: quantityDefaultTextStyle)
               ],
             ),
-            pendingIcon
+            item.done ? doneIcon : pendingIcon,
           ],
         ),
       ),

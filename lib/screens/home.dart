@@ -91,17 +91,32 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> getAllCategories() {
     sortItemsToMap();
+    int index = 0;
     List<Widget> categoryWidgets = [];
     itemsMap.forEach((category, itemList) {
-      categoryWidgets.add(
-        CategoryCard(
-          title: category.toUpperCase(),
-          number: itemList.length,
-          icon: categoryToIcon[category],
-          category: category,
-        ),
-      );
+      if (itemList.length == 0) {
+        categoryWidgets.add(
+          CategoryCard(
+            title: category.toUpperCase(),
+            number: itemList.length,
+            icon: categoryToIcon[category],
+            category: category,
+          ),
+        );
+      } else {
+        categoryWidgets.insert(
+          index,
+          CategoryCard(
+            title: category.toUpperCase(),
+            number: itemList.length,
+            icon: categoryToIcon[category],
+            category: category,
+          ),
+        );
+        index++;
+      }
     });
+
     return categoryWidgets;
   }
 }
