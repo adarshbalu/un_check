@@ -107,12 +107,22 @@ class _DetailsScreenState extends State<DetailsScreen> {
       Item item = itemsBox.getAt(i);
 
       if (item.category == widget.category) {
-        itemCardWidgets.add(
-          ItemCard(
-            item: item,
-            index: i,
-          ),
-        );
+        if (item.done) {
+          itemCardWidgets.add(
+            ItemCard(
+              item: item,
+              index: i,
+            ),
+          );
+        } else {
+          itemCardWidgets.insert(
+            0,
+            ItemCard(
+              item: item,
+              index: i,
+            ),
+          );
+        }
       }
     }
 

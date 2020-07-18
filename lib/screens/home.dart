@@ -112,7 +112,8 @@ class _HomeScreenState extends State<HomeScreen> {
           CategoryCard(
             done: false,
             title: category.toUpperCase(),
-            number: itemList.length,
+            total: itemList.length,
+            completed: 0,
             icon: categoryToIcon[category],
             category: category,
           ),
@@ -129,8 +130,9 @@ class _HomeScreenState extends State<HomeScreen> {
             index,
             CategoryCard(
               done: done,
+              completed: doneItems,
               title: category.toUpperCase(),
-              number: itemList.length,
+              total: itemList.length,
               icon: categoryToIcon[category],
               category: category,
             ),
@@ -140,8 +142,9 @@ class _HomeScreenState extends State<HomeScreen> {
             0,
             CategoryCard(
               done: done,
+              completed: doneItems,
               title: category.toUpperCase(),
-              number: itemList.length,
+              total: itemList.length,
               icon: categoryToIcon[category],
               category: category,
             ),
