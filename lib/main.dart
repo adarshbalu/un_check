@@ -28,6 +28,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData.dark().copyWith(
         inputDecorationTheme: InputDecorationTheme(
             filled: true,
+            counterStyle: TextStyle(color: Colors.transparent),
             fillColor: Colors.white,
             hintStyle: TextStyle(color: Colors.grey.shade800),
             border: OutlineInputBorder(

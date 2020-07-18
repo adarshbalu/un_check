@@ -16,6 +16,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
   String type, name;
   double quantity;
   int _defaultChoiceIndex;
+  final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     nameController = TextEditingController();
@@ -23,6 +24,16 @@ class _AddItemScreenState extends State<AddItemScreen> {
     type = 'pcs';
     _defaultChoiceIndex = 0;
     super.initState();
+  }
+
+  showSnackBarWidget(BuildContext context) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      backgroundColor: Colors.black,
+      content: Text(
+        'Please enter valid Values',
+        style: TextStyle(color: Colors.red),
+      ),
+    ));
   }
 
   addItem() {
@@ -45,69 +56,103 @@ class _AddItemScreenState extends State<AddItemScreen> {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Container(
-            margin: EdgeInsets.all(8),
-            padding: EdgeInsets.all(8),
-            height: MediaQuery.of(context).size.height / 1.2,
-            width: MediaQuery.of(context).size.width / 1.1,
-            decoration: BoxDecoration(
-              color: Color(0xff3A3940),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          style: TextStyle(color: Colors.black),
-                          decoration: InputDecoration(
-                            hintText: 'Name of the item',
-                            helperText: 'Item Name',
+          child: Form(
+            key: _formKey,
+            child: Container(
+              margin: EdgeInsets.all(8),
+              padding: EdgeInsets.all(8),
+              height: MediaQuery.of(context).size.height / 1.2,
+              width: MediaQuery.of(context).size.width / 1.1,
+              decoration: BoxDecoration(
+                color: Color(0xff3A3940),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            style: TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                              hintText: 'Name of the item',
+                              helperText: 'Item Name',
+                            ),
+                            onChanged: (v) {
+                              _formKey.currentState.validate();
+                            },
+                            controller: nameController,
+                            validator: (value) {
+                              if (value.isEmpty || value == '') {
+                                return 'Please enter Value';
+                              }
+                              return null;
+                            },
                           ),
-                          controller: nameController,
                         ),
                       ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width / 3.5,
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        maxLength: 10,
-                        style: TextStyle(color: Colors.black),
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          hintText: 'Quantity',
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3.5,
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          onChanged: (v) {
+                            _formKey.currentState.validate();
+                          },
+                          validator: (value) {
+                            if (value.isEmpty || value == '') {
+                              return 'Please enter Value';
+                            }
+                            double v = double.tryParse(value);
+                            if (v == null) {
+                              return 'Error value';
+                            }
+                            if (double.tryParse(value).isNaN ||
+                                double.tryParse(value).isNegative) {
+                              return 'Enter valid quantity';
+                            }
+                            return null;
+                          },
+                          maxLength: 10,
+                          style: TextStyle(color: Colors.black),
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            hintText: 'Quantity',
+                          ),
+                          controller: quantityController,
                         ),
-                        controller: quantityController,
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                choiceChips(),
-                SizedBox(
-                  height: 16,
-                ),
-                RaisedButton.icon(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    color: Colors.green,
-                    onPressed: () {
-                      type = typeChoices[_defaultChoiceIndex];
-                      name = nameController.text;
-                      quantity = double.parse(quantityController.text);
-                      addItem();
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.add_shopping_cart),
-                    label: Text('Add item'))
-              ],
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  choiceChips(),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Builder(builder: (context) {
+                    return RaisedButton.icon(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        color: Colors.green,
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            type = typeChoices[_defaultChoiceIndex];
+                            name = nameController.text;
+                            quantity = double.parse(quantityController.text);
+                            addItem();
+                            Navigator.pop(context);
+                          } else
+                            showSnackBarWidget(context);
+                        },
+                        icon: Icon(Icons.add_shopping_cart),
+                        label: Text('Add item'));
+                  })
+                ],
+              ),
             ),
           ),
         ),
