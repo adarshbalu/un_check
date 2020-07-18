@@ -30,11 +30,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    getCount();
     return ValueListenableBuilder(
       valueListenable: itemsBox.listenable(),
       builder: (context, Box box, _) {
         getCount();
+        getAllItems();
         if (box.isOpen) {
           return Scaffold(
             appBar: AppBar(
