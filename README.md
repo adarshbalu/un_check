@@ -57,7 +57,7 @@ width="200">
 
 ## Permissions
 
-On Android versions prior to Android 6.0, MooovieX requires the following permissions:
+On Android versions prior to Android 6.0, UN Check requires the following permissions:
 - Storage Acces - Saving offline on the device .
 
 
